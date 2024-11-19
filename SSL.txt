@@ -1,0 +1,9 @@
+commands:
+1. create key
+openssl genrsa -out server.key 2048
+
+2. generate self signed certificate
+openssl req -x509 -newkey rsa:4096 -sha256 -days 365 -nodes -keyout server.key -out server.crt -subj "/CN=<LOCAL_IP>" -addext "subjectAltName=IP:<LOCAL_IP>, DNS:<MACHINE_NAME>"
+
+3. import certificate in java keystore
+keytool -import -alias "<ALIAS-NAME-FOR-CERTIFICATE>" -keystore "<JRE-FOLDER>\lib\security\cacerts" -file "<SSL-CERTIFICATE-PATH>"
